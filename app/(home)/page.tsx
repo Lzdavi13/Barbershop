@@ -1,7 +1,8 @@
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { Search } from "lucide-react";
+import BookingItem from "../_components/booking-item";
 import Header from "../_components/header";
+import Search from "./_components/search";
 
 export default function Home() {
   return (
@@ -20,6 +21,13 @@ export default function Home() {
 
       <div className="px-5 mt-6">
         <Search />
+      </div>
+
+      <div className="px-5 mt-6">
+        <h2 className="text-xs mb-3 font-bold uppercase text-gray-400">
+          Agendamentos
+        </h2>
+        <BookingItem />
       </div>
     </div>
   );
