@@ -32,6 +32,7 @@ function BarbershopInfo({ barbershop }: BarbershopInfoProps) {
           size="icon"
           variant="outline"
           className="z-50 absolute top-4 right-4"
+          onClick={() => console.log(barbershop)}
         >
           <MenuIcon size={20} />
         </Button>
