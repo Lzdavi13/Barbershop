@@ -12,20 +12,31 @@ import {
   SheetTrigger,
 } from "@/app/_components/ui/sheet";
 import { Barbershop, Service } from "@prisma/client";
-import { format } from "date-fns";
+import { format, setHours, setMinutes } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import { saveBooking } from "../_actions/save-booking";
 import { generateDayTimeList } from "../_helpers/hours";
 
 interface ServiceItemProps {
   barbershop: Barbershop;
   service: Service;
+  isAuthenticated: boolean;
 }
 
-function ServiceItem({ barbershop, service }: ServiceItemProps) {
+function ServiceItem({
+  barbershop,
+  service,
+  isAuthenticated,
+}: ServiceItemProps) {
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [hour, setHour] = useState<string | undefined>();
+  const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false);
+
+  const { data } = useSession();
 
   const timeList = useMemo(() => {
     return date ? generateDayTimeList(date) : [];
@@ -38,6 +49,31 @@ function ServiceItem({ barbershop, service }: ServiceItemProps) {
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);
     setHour(undefined);
+  };
+
+  const handleBookingSubmit = async () => {
+    try {
+      if (!hour || !date || !data?.user) {
+        return;
+      }
+      setSubmitIsLoading(true);
+
+      const dateHour = Number(hour?.split(":")[0]);
+      const dateMinutes = Number(hour?.split(":")[1]);
+
+      const newDate = setMinutes(setHours(date as Date, dateHour), dateMinutes);
+
+      await saveBooking({
+        barbershopId: barbershop.id,
+        serviceId: service.id,
+        userId: (data.user as any).id,
+        date: newDate,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitIsLoading(false);
+    }
   };
 
   return (
@@ -160,7 +196,15 @@ function ServiceItem({ barbershop, service }: ServiceItemProps) {
                   </div>
 
                   <SheetFooter className="px-5">
-                    <Button disabled={!hour || !date}>Confirmar</Button>
+                    <Button
+                      disabled={!hour || !date || submitIsLoading}
+                      onClick={handleBookingSubmit}
+                    >
+                      {submitIsLoading && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
+                      Confirmar reserva
+                    </Button>
                   </SheetFooter>
                 </SheetContent>
               </Sheet>
