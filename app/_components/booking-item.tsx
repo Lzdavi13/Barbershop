@@ -18,9 +18,9 @@ function BookingItem({ booking }: BookingItemProps) {
   const isBookingConfirmed = isPast(booking.date);
 
   return (
-    <Card>
-      <CardContent className="p-5 flex justify-between py-0">
-        <div className="flex flex-col gap-2 py-5">
+    <Card className="min-w-full">
+      <CardContent className="px-0 flex justify-between py-0">
+        <div className="flex flex-col gap-2 py-5 flex-[3] pl-5">
           <Badge
             variant={isBookingConfirmed ? "secondary" : "default"}
             className="w-fit"
@@ -39,7 +39,7 @@ function BookingItem({ booking }: BookingItemProps) {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center px-3 border-l border-solid border-secondary">
+        <div className="flex flex-col items-center justify-center flex-1 border-l border-solid border-secondary">
           <p className="text-sm capitalize">
             {format(booking.date, "MMMM", {
               locale: ptBR,

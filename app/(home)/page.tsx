@@ -1,20 +1,45 @@
-import { Barbershop } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { getServerSession } from "next-auth";
+import BookingItem from "../_components/booking-item";
 import Header from "../_components/header";
 import { db } from "../_lib/prisma";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 import BarbershopItem from "./_components/barbershop-item";
 import Search from "./_components/search";
 
 export default async function Home() {
-  const barbershops: Barbershop[] = await db.barbershop.findMany({});
+  const session = await getServerSession(authOptions);
+
+  const [barbershops, confirmedBookings] = await Promise.all([
+    db.barbershop.findMany({}),
+    session?.user
+      ? db.booking.findMany({
+          where: {
+            userId: (session.user as any).id,
+            date: {
+              gte: new Date(),
+            },
+          },
+          include: {
+            barbershop: true,
+            service: true,
+          },
+        })
+      : Promise.resolve([]),
+  ]);
 
   return (
     <div>
       <Header />
       <div className="px-5 pt-5">
         <h2 className="text-xl font-normal">
-          Olá, <span className="font-bold">Luiz!</span>
+          Olá,{" "}
+          {session?.user ? (
+            <span className="font-bold">{(session?.user as any).name}</span>
+          ) : (
+            ""
+          )}
         </h2>
         <p className="capitalize text-sm">
           {format(new Date(), "EEEE',' dd 'de' MMMM", {
@@ -26,13 +51,17 @@ export default async function Home() {
       <div className="px-5 mt-6">
         <Search />
       </div>
-      {/* 
-      <div className="px-5 mt-6">
-        <h2 className="text-xs mb-3 font-bold uppercase text-gray-400">
+
+      <div className="mt-6">
+        <h2 className="pl-5 text-xs mb-3 font-bold uppercase text-gray-400">
           Agendamentos
         </h2>
-        <BookingItem />
-      </div> */}
+        <div className="flex gap-3 px-5 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+          {confirmedBookings.map((booking) => (
+            <BookingItem key={booking.id} booking={booking} />
+          ))}
+        </div>
+      </div>
 
       <div className="mt-6">
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">

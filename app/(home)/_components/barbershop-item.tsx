@@ -51,7 +51,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
             {barbershop.address}
           </p>
           <Button
-            className="w-full mt-3"
+            className="w-full mt-3 cursor-pointer"
             variant="secondary"
             onClick={handleBookingClick}
           >
