@@ -162,15 +162,15 @@ function ServiceItem({
                 <SheetTrigger asChild>
                   <Button variant="secondary">Reservar</Button>
                 </SheetTrigger>
-                <SheetContent className="p-0">
-                  <SheetHeader className="px-5 py-6 text-left border-b border-solid boder-secondary">
+                <SheetContent className="p-0 overflow-auto">
+                  <SheetHeader className="px-5 py-4 text-left border-b border-solid boder-secondary">
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
 
                   <Calendar
                     mode="single"
                     selected={date}
-                    className="mt-6"
+                    className="mt-2"
                     onSelect={handleDateClick}
                     fromDate={new Date()}
                     locale={ptBR}
@@ -214,7 +214,7 @@ function ServiceItem({
                     </div>
                   )}
 
-                  <div className="py-6 px-5">
+                  <div className="py-3 px-5">
                     <Card>
                       <CardContent className="p-3 flex flex-col gap-3">
                         <div className="flex justify-between">
@@ -250,7 +250,7 @@ function ServiceItem({
                     </Card>
                   </div>
 
-                  <SheetFooter className="px-5">
+                  <SheetFooter className="px-5 mb-4">
                     <Button
                       disabled={!hour || !date || submitIsLoading}
                       onClick={handleBookingSubmit}

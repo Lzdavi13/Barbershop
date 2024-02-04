@@ -1,7 +1,6 @@
 import { Barbershop } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import BookingItem from "../_components/booking-item";
 import Header from "../_components/header";
 import { db } from "../_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
@@ -27,13 +26,13 @@ export default async function Home() {
       <div className="px-5 mt-6">
         <Search />
       </div>
-
+      {/* 
       <div className="px-5 mt-6">
         <h2 className="text-xs mb-3 font-bold uppercase text-gray-400">
           Agendamentos
         </h2>
         <BookingItem />
-      </div>
+      </div> */}
 
       <div className="mt-6">
         <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">

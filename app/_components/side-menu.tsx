@@ -1,13 +1,14 @@
 "use client";
 
 import {
-  Calendar,
+  CalendarIcon,
   HomeIcon,
   LogInIcon,
   LogOutIcon,
   UserIcon,
 } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { SheetHeader, SheetTitle } from "./ui/sheet";
@@ -53,15 +54,19 @@ function SideMenu() {
         </div>
       )}
       <div className="flex flex-col gap-3 px-5">
-        <Button variant="outline" className="w-full justify-start">
-          <HomeIcon className="mr-2" size={18} />
-          Início
+        <Button variant="outline" className="justify-start" asChild>
+          <Link href="/">
+            <HomeIcon size={18} className="mr-2" />
+            Início
+          </Link>
         </Button>
 
         {data?.user && (
-          <Button variant="outline" className="w-full justify-start">
-            <Calendar className="mr-2" size={18} />
-            Agendamentos
+          <Button variant="outline" className="justify-start" asChild>
+            <Link href="/bookings">
+              <CalendarIcon size={18} className="mr-2" />
+              Agendamentos
+            </Link>
           </Button>
         )}
       </div>
