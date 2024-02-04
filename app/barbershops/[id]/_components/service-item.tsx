@@ -15,7 +15,7 @@ import { Barbershop, Booking, Service } from "@prisma/client";
 import { format, setHours, setMinutes } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Loader2 } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -65,6 +65,12 @@ function ServiceItem({
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);
     setHour(undefined);
+  };
+
+  const handleBookingClick = () => {
+    if (!isAuthenticated) {
+      return signIn("google");
+    }
   };
 
   const handleBookingSubmit = async () => {
@@ -160,7 +166,9 @@ function ServiceItem({
 
               <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="secondary">Reservar</Button>
+                  <Button variant="secondary" onClick={handleBookingClick}>
+                    Reservar
+                  </Button>
                 </SheetTrigger>
                 <SheetContent className="p-0 overflow-auto">
                   <SheetHeader className="px-5 py-4 text-left border-b border-solid boder-secondary">
