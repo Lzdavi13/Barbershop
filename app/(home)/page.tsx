@@ -36,9 +36,11 @@ export default async function Home() {
         <h2 className="text-xl font-normal">
           Olá,{" "}
           {session?.user ? (
-            <span className="font-bold">{(session?.user as any).name}</span>
+            <span className="font-bold">
+              {session?.user.name?.split(" ")[0]}
+            </span>
           ) : (
-            ""
+            "vamos agendar um corte hoje?"
           )}
         </h2>
         <p className="capitalize text-sm">
