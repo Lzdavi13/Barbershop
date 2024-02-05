@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from "@/app/_components/ui/sheet";
 import { Barbershop, Booking, Service } from "@prisma/client";
-import { format, setHours, setMinutes } from "date-fns";
+import { addDays, format, setHours, setMinutes } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Loader2 } from "lucide-react";
 import { signIn, useSession } from "next-auth/react";
@@ -178,7 +178,7 @@ function ServiceItem({
                     selected={date}
                     className="mt-2"
                     onSelect={handleDateClick}
-                    fromDate={new Date()}
+                    fromDate={addDays(new Date(), 1)}
                     locale={ptBR}
                     styles={{
                       head_cell: {
