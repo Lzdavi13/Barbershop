@@ -5,6 +5,7 @@ import BookingItem from "../_components/booking-item";
 import Header from "../_components/header";
 import { db } from "../_lib/prisma";
 
+import { Barbershop, Booking } from "@prisma/client";
 import { authOptions } from "../_lib/auth";
 import BarbershopItem from "./_components/barbershop-item";
 import Search from "./_components/search";
@@ -60,7 +61,7 @@ export default async function Home() {
           Agendamentos
         </h2>
         <div className="flex gap-3 px-5 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {confirmedBookings.map((booking) => (
+          {confirmedBookings.map((booking: Booking) => (
             <BookingItem key={booking.id} booking={booking} />
           ))}
         </div>
@@ -72,7 +73,7 @@ export default async function Home() {
         </h2>
 
         <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => (
+          {barbershops.map((barbershop: Barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
@@ -84,7 +85,7 @@ export default async function Home() {
         </h2>
 
         <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => (
+          {barbershops.map((barbershop: Barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>

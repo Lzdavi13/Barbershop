@@ -1,5 +1,6 @@
 import { authOptions } from "@/app/_lib/auth";
 import { db } from "@/app/_lib/prisma";
+import { Service } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import BarbershopInfo from "./_components/barbershop-info";
 import ServiceItem from "./_components/service-item";
@@ -25,7 +26,7 @@ async function BarbershopPage({ params }: BarbershopPageProps) {
     <div>
       <BarbershopInfo barbershop={barbershop} />
       <div className="px-5 flex flex-col gap-4 py-6">
-        {barbershop.services.map((service) => (
+        {barbershop.services.map((service: Service) => (
           <ServiceItem
             key={service.id}
             barbershop={barbershop}

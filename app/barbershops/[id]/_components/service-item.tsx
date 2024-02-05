@@ -162,8 +162,6 @@ function ServiceItem({
                 }).format(Number(service.price))}
               </p>
 
-              {/* <Button variant="outline">Reservar</Button> */}
-
               <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
                   <Button variant="secondary" onClick={handleBookingClick}>
