@@ -13,23 +13,29 @@ import Search from "./_components/search";
 export default async function Home() {
   const session = await getServerSession(authOptions);
 
-  const [barbershops, confirmedBookings] = await Promise.all([
-    db.barbershop.findMany({}),
-    session?.user
-      ? db.booking.findMany({
-          where: {
-            userId: (session.user as any).id,
-            date: {
-              gte: new Date(),
+  const [barbershops, recommendedBookings, confirmedBookings] =
+    await Promise.all([
+      db.barbershop.findMany({}),
+      db.barbershop.findMany({
+        orderBy: {
+          id: "asc",
+        },
+      }),
+      session?.user
+        ? db.booking.findMany({
+            where: {
+              userId: (session.user as any).id,
+              date: {
+                gte: new Date(),
+              },
             },
-          },
-          include: {
-            barbershop: true,
-            service: true,
-          },
-        })
-      : Promise.resolve([]),
-  ]);
+            include: {
+              barbershop: true,
+              service: true,
+            },
+          })
+        : Promise.resolve([]),
+    ]);
 
   return (
     <div>
@@ -87,7 +93,7 @@ export default async function Home() {
         </h2>
 
         <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop: Barbershop) => (
+          {recommendedBookings.map((barbershop: Barbershop) => (
             <div key={barbershop.id} className="min-w-[167px] min-h-[167px]">
               <BarbershopItem barbershop={barbershop} />
             </div>
