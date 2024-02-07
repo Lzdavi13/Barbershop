@@ -1,5 +1,6 @@
 "use client";
 
+import BookingInfo from "@/app/_components/booking-info";
 import { Button } from "@/app/_components/ui/button";
 import { Calendar } from "@/app/_components/ui/calendar";
 import { Card, CardContent } from "@/app/_components/ui/card";
@@ -221,39 +222,22 @@ function ServiceItem({
                   )}
 
                   <div className="py-3 px-5">
-                    <Card>
-                      <CardContent className="p-3 flex flex-col gap-3">
-                        <div className="flex justify-between">
-                          <h2 className="font-bold">{service.name}</h2>
-                          <p className="font-semibol text-sm">
-                            {Intl.NumberFormat("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                            }).format(Number(service.price))}
-                          </p>
-                        </div>
-                        {date && (
-                          <div className="flex justify-between">
-                            <h3 className="text-gray-400">Data</h3>
-                            <p className="text-sm">
-                              {format(date, "dd 'de' MMMM", { locale: ptBR })}
-                            </p>
-                          </div>
-                        )}
-
-                        {hour && (
-                          <div className="flex justify-between">
-                            <h3 className="text-gray-400">Horário</h3>
-                            <p className="text-sm">{hour}</p>
-                          </div>
-                        )}
-
-                        <div className="flex justify-between">
-                          <h3 className="text-gray-400">Barbearia</h3>
-                          <p className="text-sm">{barbershop.name}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <BookingInfo
+                      booking={{
+                        barbershop: barbershop,
+                        date:
+                          date && hour
+                            ? setMinutes(
+                                setHours(
+                                  date as Date,
+                                  Number(hour?.split(":")[0])
+                                ),
+                                Number(hour?.split(":")[1])
+                              )
+                            : undefined,
+                        service: service,
+                      }}
+                    />
                   </div>
 
                   <SheetFooter className="px-5 mb-4">

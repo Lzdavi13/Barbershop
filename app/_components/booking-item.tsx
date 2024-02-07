@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 import { cancelBooking } from "../_actions/cancel-booking";
+import BookingInfo from "./booking-info";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -135,36 +136,7 @@ function BookingItem({ booking }: BookingItemProps) {
             {isBookingConfirmed ? "Finalizado" : "Confirmado"}
           </Badge>
 
-          <Card>
-            <CardContent className="p-3 flex flex-col gap-3">
-              <div className="flex justify-between">
-                <h2 className="font-bold">{booking.service.name}</h2>
-                <p className="font-semibol text-sm">
-                  {Intl.NumberFormat("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  }).format(Number(booking.service.price))}
-                </p>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-gray-400">Data</h3>
-                <p className="text-sm">
-                  {format(booking.date, "dd 'de' MMMM", { locale: ptBR })}
-                </p>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-gray-400">Horário</h3>
-                <p className="text-sm">{format(booking.date, "hh:mm")}</p>
-              </div>
-
-              <div className="flex justify-between">
-                <h3 className="text-gray-400">Barbearia</h3>
-                <p className="text-sm">{booking.barbershop.name}</p>
-              </div>
-            </CardContent>
-          </Card>
+          <BookingInfo booking={booking} />
 
           <SheetFooter className="flex-row gap-3 mt-8">
             <SheetClose asChild>
