@@ -1,17 +1,16 @@
 "use client";
 
-import { CalendarIcon, HomeIcon, LogOutIcon, UserIcon } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { CalendarIcon, HomeIcon, UserIcon } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import CardLogin from "./card-login";
+import CardLougout from "./card-logout";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { SheetHeader, SheetTitle } from "./ui/sheet";
 
 function SideMenu() {
   const { data } = useSession();
-
-  const handleLogoutClick = () => signOut();
 
   return (
     <>
@@ -26,9 +25,7 @@ function SideMenu() {
             </Avatar>
             <h2 className="text-base font-bold">{data.user.name}</h2>
           </div>
-          <Button variant="secondary" size="icon" onClick={handleLogoutClick}>
-            <LogOutIcon />
-          </Button>
+          <CardLougout />
         </div>
       ) : (
         <div className="flex flex-col px-5 py-6 gap-3">
