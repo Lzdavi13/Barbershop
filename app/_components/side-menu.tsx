@@ -1,22 +1,15 @@
 "use client";
 
-import {
-  CalendarIcon,
-  HomeIcon,
-  LogInIcon,
-  LogOutIcon,
-  UserIcon,
-} from "lucide-react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { CalendarIcon, HomeIcon, LogOutIcon, UserIcon } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import CardLogin from "./card-login";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import { SheetHeader, SheetTitle } from "./ui/sheet";
 
 function SideMenu() {
   const { data } = useSession();
-
-  const handleLoginClick = () => signIn("google");
 
   const handleLogoutClick = () => signOut();
 
@@ -43,14 +36,7 @@ function SideMenu() {
             <UserIcon size={30} />
             <h2 className="text-base font-bold">Olá, faça seu login!</h2>
           </div>
-          <Button
-            variant="secondary"
-            onClick={handleLoginClick}
-            className="w-full justify-start"
-          >
-            <LogInIcon className="mr-2" size={18} />
-            Fazer login
-          </Button>
+          <CardLogin />
         </div>
       )}
       <div className="flex flex-col gap-3 px-5">
