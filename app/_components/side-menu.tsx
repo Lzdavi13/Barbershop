@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarIcon, HomeIcon, UserIcon } from "lucide-react";
+import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon, UserIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import CardLogin from "./card-login";
@@ -25,7 +25,11 @@ function SideMenu() {
             </Avatar>
             <h2 className="text-base font-bold">{data.user.name}</h2>
           </div>
-          <CardLougout />
+          <CardLougout button={
+            <Button size="icon" variant="secondary">
+              <LogOutIcon size={18} />
+            </Button>
+          } />
         </div>
       ) : (
         <div className="flex flex-col px-5 py-6 gap-3">
@@ -33,7 +37,14 @@ function SideMenu() {
             <UserIcon size={30} />
             <h2 className="text-base font-bold">Olá, faça seu login!</h2>
           </div>
-          <CardLogin />
+          <CardLogin
+            button={
+              <Button variant="secondary" className="w-full justify-start">
+                <LogInIcon className="mr-2" size={18} />
+                Fazer login
+              </Button>
+            }
+          />
         </div>
       )}
       <div className="flex flex-col gap-3 px-5">

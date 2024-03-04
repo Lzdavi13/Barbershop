@@ -1,12 +1,11 @@
+import { Barbershop, Booking } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { getServerSession } from "next-auth";
 import BookingItem from "../_components/booking-item";
 import Header from "../_components/header";
-import { db } from "../_lib/prisma";
-
-import { Barbershop, Booking } from "@prisma/client";
 import { authOptions } from "../_lib/auth";
+import { db } from "../_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
 import Search from "./_components/search";
 
@@ -23,17 +22,17 @@ export default async function Home() {
       }),
       session?.user
         ? db.booking.findMany({
-            where: {
-              userId: (session.user as any).id,
-              date: {
-                gte: new Date(),
-              },
+          where: {
+            userId: (session.user as any).id,
+            date: {
+              gte: new Date(),
             },
-            include: {
-              barbershop: true,
-              service: true,
-            },
-          })
+          },
+          include: {
+            barbershop: true,
+            service: true,
+          },
+        })
         : Promise.resolve([]),
     ]);
 
@@ -44,7 +43,7 @@ export default async function Home() {
         <h2 className="text-xl font-normal">
           Olá,{" "}
           {session?.user ? (
-            <span className="font-bold">
+            <span className="font-bold ">
               {session?.user.name?.split(" ")[0]}
             </span>
           ) : (

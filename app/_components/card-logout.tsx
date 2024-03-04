@@ -1,6 +1,6 @@
 "use client";
-import { LogOutIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { ReactNode } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,17 +12,18 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { Button } from "./ui/button";
 
-function CardLougout() {
+interface CardLogoutProps {
+  button: ReactNode
+}
+
+function CardLougout({ button }: CardLogoutProps) {
   const handleLogoutClick = () => signOut();
   return (
     <>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button size="icon" variant="secondary">
-            <LogOutIcon size={18} />
-          </Button>
+          {button}
         </AlertDialogTrigger>
 
         <AlertDialogContent className="w-[90%] rounded-xl">

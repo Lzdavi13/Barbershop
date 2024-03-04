@@ -1,6 +1,5 @@
 "use client";
 import { AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import { LogInIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import {
@@ -13,17 +12,18 @@ import {
 } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
 
-function CardLogin() {
+import { ReactNode } from "react";
+
+interface CardLoginProps {
+  button: ReactNode;
+}
+
+function CardLogin({ button }: CardLoginProps) {
   const handleLoginClick = () => signIn("google");
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button variant="secondary" className="w-full justify-start">
-            <LogInIcon className="mr-2" size={18} />
-            Fazer login
-          </Button>
-        </AlertDialogTrigger>
+        <AlertDialogTrigger asChild>{button}</AlertDialogTrigger>
 
         <AlertDialogContent className="w-[90%] rounded-xl">
           <AlertDialogHeader>
