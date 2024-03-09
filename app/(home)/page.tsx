@@ -116,8 +116,8 @@ export default async function Home() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="max-xl:hidden" />
-            <CarouselNext className="max-xl:hidden" />
+            <CarouselPrevious className="max-lg:hidden" />
+            <CarouselNext className="max-lg:hidden" />
           </Carousel>
         </div>
 
@@ -134,8 +134,8 @@ export default async function Home() {
                 </CarouselItem>
               ))}
             </CarouselContent >
-            <CarouselPrevious className="max-xl:hidden" />
-            <CarouselNext className="max-xl:hidden" />
+            <CarouselPrevious className="max-lg:hidden" />
+            <CarouselNext className="max-lg:hidden" />
           </Carousel>
         </div>
       </div>
