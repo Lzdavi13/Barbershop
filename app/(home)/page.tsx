@@ -40,9 +40,9 @@ export default async function Home() {
   return (
     <div>
       <Header />
-      <div className="xl:h-[463px] xl:w-full xl:relative xl:bg-zinc-950/75 xl:flex xl:gap-20 2xl:gap-28">
-        <div style={{ backgroundImage: "url('/homebg.svg')" }} className=" max-xl:hidden bg-cover absolute z-[-1] w-full bg-no-repeat h-full grayscale" />
-        <div className="flex flex-col xl:py-16 xl:pl-14 gap-3">
+      <div className="xl:h-[463px] lg:h-[370px] w-full relative xl:bg-zinc-950/75 lg:flex lg:max-xl:flex lg:max-xl:gap-20 2xl:gap-28 items-center">
+        <div style={{ backgroundImage: "url('/homebg.svg')" }} className=" max-lg:hidden bg-cover absolute z-[-1] w-full bg-no-repeat h-full grayscale" />
+        <div className="flex flex-col lg:pl-10 xl:py-16 xl:pl-14 gap-3">
           <div className="px-5 pt-5 xl:pt-0">
             <h2 className="text-xl font-normal xl:text-2xl">
               Olá,{" "}
@@ -61,11 +61,11 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="px-5 mt-6 xl:w-[439px] 2xl:w-[630px]">
+          <div className="px-5 mt-6 lg:mt-4 xl:w-[439px] lg:w-[370px] 2xl:w-[630px]">
             <Search />
           </div>
 
-          <div className="mt-6 xl:mt-4 xl:w-[439px] 2xl:w-[630px]">
+          <div className="mt-6 lg:mt-3 xl:mt-4 xl:w-[439px] lg:w-[370px] 2xl:w-[630px]">
             {confirmedBookings.length > 0 && (
               <>
                 <h2 className="pl-5 text-xs mb-3 uppercase text-gray-400 font-bold">
@@ -81,51 +81,62 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="max-xl:hidden py-16 pr-14">
+        <div className="max-lg:hidden lg:pr-10 py-16 pr-14 mx-auto">
           <h2 className="text-xs mb-3 uppercase text-gray-400 font-bold ml-1">
             Recomendados
           </h2>
 
-          <Carousel className="w-full xl:max-w-[600px] 2xl:max-w-[950px]">
+          <Carousel className="w-full lg:max-w-[400px] xl:max-w-[600px] 2xl:max-w-[950px]">
             <CarouselContent className="-ml-1">
               {barbershops.map((barbershop: Barbershop) => (
-                <CarouselItem key={barbershop.id} className="pl-1 xl:basis-1/3 2xl:basis-1/5">
+                <CarouselItem key={barbershop.id} className="pl-1 lg:basis-1/2 xl:basis-1/3 2xl:basis-1/5">
                   <BarbershopItem barbershop={barbershop} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="max-lg:hidden" />
+            <CarouselNext className="max-lg:hidden" />
           </Carousel>
         </div>
 
       </div>
 
-      <div className="mt-6">
-        <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">
-          Populares
-        </h2>
 
-        <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop: Barbershop) => (
-            <div key={barbershop.id} className="min-w-[167px] min-h-[167px]">
-              <BarbershopItem barbershop={barbershop} />
-            </div>
-          ))}
+      <div className="flex flex-col gap-6 items-center pb-24">
+        <div className="pt-10">
+
+          <h2 className="text-xs mb-3 uppercase text-gray-400 font-bold ml-1">
+            Populares
+          </h2>
+          <Carousel className="w-full max-w-[330px] md:max-w-[650px] lg:max-w-[750px] xl:max-w-[1100px] 2xl:min-w-[1500px]">
+            <CarouselContent className="-ml-1 xl:gap-1 gap-2">
+              {barbershops.map((barbershop: Barbershop) => (
+                <CarouselItem key={barbershop.id} className="pl-1 basis-[49%] md:basis-[24%] lg:basis-[24%] xl:basis-1/5 2xl:basis-[13.999999%]">
+                  <BarbershopItem barbershop={barbershop} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="max-xl:hidden" />
+            <CarouselNext className="max-xl:hidden" />
+          </Carousel>
         </div>
-      </div>
 
-      <div className="mt-6 mb-[4.5rem]">
-        <h2 className="px-5 text-xs mb-3 uppercase text-gray-400 font-bold">
-          Mais Visitados
-        </h2>
+        <div className="pt-10">
 
-        <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {recommendedBookings.map((barbershop: Barbershop) => (
-            <div key={barbershop.id} className="min-w-[167px] min-h-[167px]">
-              <BarbershopItem barbershop={barbershop} />
-            </div>
-          ))}
+          <h2 className="text-xs mb-3 uppercase text-gray-400 font-bold ml-1">
+            Mais visitados
+          </h2>
+          <Carousel className="w-full max-w-[320px] md:max-w-[650px] lg:max-w-[750px] xl:max-w-[1100px] 2xl:min-w-[1500px]">
+            <CarouselContent className="-ml-1 xl:gap-1 gap-2">
+              {barbershops.map((barbershop: Barbershop) => (
+                <CarouselItem key={barbershop.id} className="pl-1 basis-[49%] md:basis-[24%] lg:basis-[24%] xl:basis-1/5 2xl:basis-[13.999999%]">
+                  <BarbershopItem barbershop={barbershop} />
+                </CarouselItem>
+              ))}
+            </CarouselContent >
+            <CarouselPrevious className="max-xl:hidden" />
+            <CarouselNext className="max-xl:hidden" />
+          </Carousel>
         </div>
       </div>
     </div>

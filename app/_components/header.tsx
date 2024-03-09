@@ -21,7 +21,7 @@ function Header() {
           <Link href="/">
             <Image src="/Logo.png" alt="fsw barber" height={18} width={120} />
           </Link>
-          <div className="md:max-xl:hidden flex items-center gap-6">
+          <div className="max-xl:hidden flex items-center gap-6">
             <Button variant="outline" className="justify-start" asChild>
               <Link href="/bookings">
                 <CalendarIcon size={18} className="mr-2" />
